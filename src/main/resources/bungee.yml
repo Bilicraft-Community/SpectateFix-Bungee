@@ -1,0 +1,6 @@
+name: SpectateFix
+version: ${project.version}
+main: com.bilicraft.spectatefix.SpectateFix
+description: 修复Geyser导致的Spectate数据包未向后端传递问题
+depends:
+  - protocolize
