@@ -16,7 +16,9 @@ public final class SpectateFix extends Plugin {
     public void onEnable() {
         // Plugin startup logic
         Map<Integer, Integer> mapping = new HashMap<>();
-        mapping.put(ProtocolVersions.MINECRAFT_LATEST,0x2D);
+        for (int i = 0; i <= ProtocolVersions.MINECRAFT_LATEST; i++) {
+            mapping.put(i,0x2D);
+        }
         ProtocolAPI.getPacketRegistration().registerPacket(Protocol.GAME, ProtocolConstants.Direction.TO_SERVER,Spectate.class,mapping);
         ProtocolAPI.getEventManager().registerListener(listener);
     }
