@@ -1,6 +1,7 @@
 package com.bilicraft.spectatefix;
 
 import de.exceptionflug.protocolize.api.protocol.ProtocolAPI;
+import de.exceptionflug.protocolize.api.util.ProtocolVersions;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.protocol.Protocol;
 import net.md_5.bungee.protocol.ProtocolConstants;
@@ -15,9 +16,7 @@ public final class SpectateFix extends Plugin {
     public void onEnable() {
         // Plugin startup logic
         Map<Integer, Integer> mapping = new HashMap<>();
-        for (int i = 400; i < 1000; i++) {
-            mapping.put(i, 0x2D);
-        }
+        mapping.put(ProtocolVersions.MINECRAFT_LATEST,0x2D);
         ProtocolAPI.getPacketRegistration().registerPacket(Protocol.GAME, ProtocolConstants.Direction.TO_SERVER,Spectate.class,mapping);
         ProtocolAPI.getEventManager().registerListener(listener);
     }
