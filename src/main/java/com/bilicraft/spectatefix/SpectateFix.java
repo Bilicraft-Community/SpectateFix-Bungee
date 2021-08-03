@@ -1,32 +1,34 @@
 package com.bilicraft.spectatefix;
 
-import de.exceptionflug.protocolize.api.protocol.ProtocolAPI;
-import de.exceptionflug.protocolize.api.util.ProtocolVersions;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.protocol.Protocol;
-import net.md_5.bungee.protocol.ProtocolConstants;
+import net.md_5.bungee.event.EventHandler;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public final class SpectateFix extends Plugin {
+public final class SpectateFix extends Plugin implements Listener {
     private SpectateAdapter listener;
+    private boolean loaded = false;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        listener = new SpectateAdapter();
-        Map<Integer, Integer> mapping = new HashMap<>();
-        for (int i = 0; i <= ProtocolVersions.MINECRAFT_LATEST; i++) {
-            mapping.put(i,0x2D);
-        }
-        ProtocolAPI.getPacketRegistration().registerPacket(Protocol.GAME, ProtocolConstants.Direction.TO_SERVER,Spectate.class,mapping);
-        ProtocolAPI.getEventManager().registerListener(listener);
+       getProxy().getPluginManager().registerListener(this,this);
     }
+
+
+    @EventHandler
+    public void proxyInit(net.md_5.bungee.api.event.LoginEvent event){
+        if(loaded){
+            return;
+        }
+        listener = new SpectateAdapter();
+        listener.register();
+        loaded = true;
+    }
+
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        ProtocolAPI.getEventManager().unregisterListener(listener);
+      listener.unregister();
     }
 }
