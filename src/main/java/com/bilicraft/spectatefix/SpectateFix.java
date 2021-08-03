@@ -10,11 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class SpectateFix extends Plugin {
-    private final SpectateAdapter listener = new SpectateAdapter();
+    private SpectateAdapter listener;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        listener = new SpectateAdapter();
         Map<Integer, Integer> mapping = new HashMap<>();
         for (int i = 0; i <= ProtocolVersions.MINECRAFT_LATEST; i++) {
             mapping.put(i,0x2D);
