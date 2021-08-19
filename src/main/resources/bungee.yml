@@ -2,6 +2,5 @@ name: SpectateFix
 version: ${project.version}
 main: com.bilicraft.spectatefix.SpectateFix
 description: BugFix
-softdepends:
+depends:
   - protocolize-plugin
-  - protocolize
